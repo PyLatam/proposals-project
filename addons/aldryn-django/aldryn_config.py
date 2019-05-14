@@ -180,18 +180,16 @@ class Form(forms.BaseForm):
                     'loaders': loader_list_class([
                         'django.template.loaders.filesystem.Loader',
                         'django.template.loaders.app_directories.Loader',
-                        'django.template.loaders.eggs.Loader',
                     ]),
                 },
             },
         ]
 
-        settings['MIDDLEWARE_CLASSES'] = [
+        settings['MIDDLEWARE'] = [
             'django.contrib.sessions.middleware.SessionMiddleware',
             # 'django.middleware.common.CommonMiddleware',
             'django.middleware.csrf.CsrfViewMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
-            # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
             'django.contrib.messages.middleware.MessageMiddleware',
             'django.middleware.locale.LocaleMiddleware',
             'django.contrib.sites.middleware.CurrentSiteMiddleware',
@@ -201,7 +199,7 @@ class Form(forms.BaseForm):
         ]
 
         if not env('DISABLE_GZIP'):
-            settings['MIDDLEWARE_CLASSES'].insert(
+            settings['MIDDLEWARE'].insert(
                 0, 'django.middleware.gzip.GZipMiddleware')
 
         settings['SITE_ID'] = env('SITE_ID', 1)
@@ -271,8 +269,8 @@ class Form(forms.BaseForm):
 
         settings['INSTALLED_APPS'].append('aldryn_sites')
 
-        settings['MIDDLEWARE_CLASSES'].insert(
-            settings['MIDDLEWARE_CLASSES'].index('django.middleware.common.CommonMiddleware'),
+        settings['MIDDLEWARE'].insert(
+            settings['MIDDLEWARE'].index('django.middleware.common.CommonMiddleware'),
             'aldryn_sites.middleware.SiteMiddleware',
         )
 
@@ -298,8 +296,8 @@ class Form(forms.BaseForm):
         s['SECURE_CONTENT_TYPE_NOSNIFF'] = env('SECURE_CONTENT_TYPE_NOSNIFF', False)
         s['SECURE_BROWSER_XSS_FILTER'] = env('SECURE_BROWSER_XSS_FILTER', False)
 
-        s['MIDDLEWARE_CLASSES'].insert(
-            s['MIDDLEWARE_CLASSES'].index('aldryn_sites.middleware.SiteMiddleware') + 1,
+        s['MIDDLEWARE'].insert(
+            s['MIDDLEWARE'].index('aldryn_sites.middleware.SiteMiddleware') + 1,
             'django.middleware.security.SecurityMiddleware',
         )
 
@@ -506,8 +504,8 @@ class Form(forms.BaseForm):
         settings['PREFIX_DEFAULT_LANGUAGE'] = not data['disable_default_language_prefix']
 
         if not settings['PREFIX_DEFAULT_LANGUAGE']:
-            settings['MIDDLEWARE_CLASSES'].insert(
-                settings['MIDDLEWARE_CLASSES'].index('django.middleware.locale.LocaleMiddleware'),
+            settings['MIDDLEWARE'].insert(
+                settings['MIDDLEWARE'].index('django.middleware.locale.LocaleMiddleware'),
                 'aldryn_django.middleware.LanguagePrefixFallbackMiddleware',
             )
 
