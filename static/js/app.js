@@ -89,8 +89,6 @@ $(document).ready(function(){
 
     //Batch
     $('#proposal-tabs a').click(show_proposal_tabs);
-    $('#unranked li').on('click', batch_add);
-    $('#accept').on('click', 'li', batch_rem);
     $('#proposal-tabs a').first().tab("show");
 
     //Screening
