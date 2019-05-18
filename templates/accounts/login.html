@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <p>This website is for members of the PyCon Latam program committee.</p>
+    <a href="{% url 'social:begin' backend='google-oauth2' %}" class="btn btn-default">Login With Google</a>
+{% endblock body %}

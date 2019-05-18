@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "proposal_render.html" as pr with context %}
+{% import "progress_render.html" as prog with context %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            {{ prog.progress_render(percent) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8" id="left-column">
+            {{ pr.proposal_render(proposal) }}
+        </div>
+        <div class="col-md-4" id="right-column">
+            {{ pr.user_vote_render(existing_vote) }}
+
+            {% if existing_vote %}
+                {{ pr.existing_vote_render(votes) }}
+            {% endif %}
+
+            <div class="alert alert-warning">
+                <p>Out of respect for potential speakers and your fellow committee
+                    members, please treat all of this information as confidential.
+                    The contents of proposals, votes, and discussions should not be
+                    shared outside the program committee.</p>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

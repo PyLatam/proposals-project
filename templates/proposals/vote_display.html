@@ -1,0 +1,7 @@
+{% macro vote_display(vote) %}
+    {% if vote == 2 %}
+        <span class="label label-success"><span class="glyphicon glyphicon-ok"></span></span>
+    {% else %}
+        <span class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span>
+    {% endif %}
+{% endmacro %}

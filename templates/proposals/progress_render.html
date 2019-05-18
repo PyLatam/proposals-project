@@ -1,0 +1,8 @@
+{% macro progress_render(percent) %}
+<div class="progress"
+     title="You have reviewed {{ percent }}% of talk submissions.">
+    <div class="progress-bar" style="width: {{ percent }}%;">
+        {{ percent }}%
+    </div>
+</div>
+{%endmacro%}

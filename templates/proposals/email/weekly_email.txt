@@ -1,0 +1,14 @@
+Hi, this is your friendly program committee bot.
+
+In the past seven days...
+{{ new_proposal_count }} new proposals.
+{{ updated_proposal_count }} updated proposals.
+{{ votes_last_week}} votes recorded.
+
+Our coverage currently looks like this:
+{% for sp in screening_progress %}{{sp.quantity}} proposals have {{sp.vote_count}} votes each.
+{% endfor %}
+
+Regards,
+
+Program Committee Bot
