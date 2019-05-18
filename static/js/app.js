@@ -10,7 +10,6 @@ function vote_click(){
     $this.addClass({'0':'btn-danger', '1':'btn-warning', '2': 'btn-success'}[$this.data().val])
     $this.removeClass('btn-default');
     $('#save').attr('disabled', $('#vote-form input[value=-1]').length > 0);
-    nominate_status()
 }
 
 function csrfSafeMethod(method) {
@@ -89,8 +88,6 @@ $(document).ready(function(){
 
     //Batch
     $('#proposal-tabs a').click(show_proposal_tabs);
-    $('#unranked li').on('click', batch_add);
-    $('#accept').on('click', 'li', batch_rem);
     $('#proposal-tabs a').first().tab("show");
 
     //Screening
