@@ -97,7 +97,7 @@ ADMIN_EMAILS = ['vote@pylatam.org']
 DEFAULT_FROM_EMAIL = 'PyLatam noreply@pylatam.org'
 
 TEMPLATES = [
-{
+    {
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         'DIRS': ['templates/proposals'],
         'APP_DIRS': True,
@@ -106,18 +106,17 @@ TEMPLATES = [
         },
     },
     {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': ['templates'],
-            'APP_DIRS': True,
-            'OPTIONS': {
-                'context_processors': [
-                    'django.template.context_processors.debug',
-                    'django.template.context_processors.request',
-                    'django.contrib.auth.context_processors.auth',
-                    'django.contrib.messages.context_processors.messages',
-                    'core.context_processors.current_site',
-                ],
-            },
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': ['templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'core.context_processors.current_site',
+            ],
         },
+    },
 ]
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

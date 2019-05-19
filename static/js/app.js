@@ -1,8 +1,3 @@
-function show_proposal_tabs(ev){
-    ev.preventDefault();
-    $(this).tab('show');
-}
-
 function vote_click(){
     var $this = $(this);
     $this.siblings('input').val($this.data().val);
@@ -85,10 +80,6 @@ $(document).ready(function(){
         var $this = $(this);
         TEMPLATES[$this.attr("id")] = _.template($this.text());
     });
-
-    //Batch
-    $('#proposal-tabs a').click(show_proposal_tabs);
-    $('#proposal-tabs a').first().tab("show");
 
     //Screening
     $('#right-column').on('click', '.voting-stripe button', vote_click);

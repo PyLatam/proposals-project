@@ -3,7 +3,7 @@
 {% macro proposal_render(proposal) %}
     <ul class="nav nav-tabs" role="tablist">
         {% if proposal.updated_on %}
-            {% for version in [proposal.data] %}
+            {% for version in proposal.data_history %}
                 <li class="{% if loop.first %} active{% endif %}">
                     <a class="tab-button" href="#rev-{{ loop.index0 }}">{{ version.timestamp|date }}</a>
                 </li>
@@ -15,7 +15,7 @@
         {% endif %}
     </ul>
     <div class="tab-content">
-        {% for version in [proposal.data] %}
+        {% for version in proposal.data_history %}
             <div class="tab-pane{% if loop.first %} active{% endif %}" id="rev-{{ loop.index0 }}">
                 <h1>{{ version.title }}</h1>
                 <table class="table">
@@ -61,23 +61,11 @@
             <table class="table">
                 <tr>
                     <td>
-                        {% if existing_vote %}
-                            {% if existing_vote.in_favor %}
-                                {% set button_cls_yes = "btn-success" %}
-                                {% set button_cls_no = "btn-default" %}
-                            {% else %}
-                                {% set button_cls_yes = "btn-default" %}
-                                {% set button_cls_no = "btn-danger" %}
-                            {% endif %}
-                        {% else %}
-                                {% set button_cls_yes = "btn-default" %}
-                                {% set button_cls_no = "btn-default" %}
-                        {% endif %}
                         <div class="btn-group btn-group-xs voting-stripe" style="min-width:75px;">
-                            <button type="button" id="standard-id-2" class="btn {{ button_cls_yes }}" data-val="2">
+                            <button type="button" id="standard-id-2" class="btn btn-default" data-val="2">
                                 <span class="glyphicon glyphicon-ok" title="Meets Standard"></span>
                             </button>
-                            <button type="button" id="standard-id-1" class="btn {{ button_cls_no }}" data-val="1">
+                            <button type="button" id="standard-id-1" class="btn btn-default" data-val="1">
                                 <span class="glyphicon glyphicon-remove" title="Does Not Meet Standard"></span>
                             </button>
                             <input name="vote" value="{{ existing_vote|default("-1", true) }}" type="hidden">

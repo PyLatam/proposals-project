@@ -7,7 +7,7 @@ from accounts.decorators import active_user_required
 
 from . import helpers
 from .models import ProposalVote
-from .helpers import get_outdated_proposals, get_proposals_for_voting
+from .helpers import get_proposals_for_voting
 
 
 @active_user_required
@@ -55,14 +55,6 @@ def votes_view(request):
 @never_cache
 @active_user_required
 def landing(request):
-    outdated = get_outdated_proposals(request.user).first()
-
-    if outdated:
-        msg = """This proposal has been updated since your last vote.
-                Please reconsider and save your vote!"""
-        messages.warning(request, msg)
-        return redirect('proposal_view', outdated.pk)
-
     proposal = get_proposals_for_voting(request.user).order_by('?').first()
 
     if not proposal:

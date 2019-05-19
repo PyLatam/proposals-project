@@ -1,7 +1,12 @@
+from dateutil.parser import parse
+
+from langdetect import detect
+
 from django.db.models import OuterRef, Subquery
 from django.db import models
+from django.utils import timezone
 
-from .models import Proposal
+from .models import Proposal, ProposalAuthor
 
 
 def get_votes_for_user(user):
@@ -28,3 +33,36 @@ def get_proposals(user):
 
 def get_proposals_for_voting(user):
     return get_proposals(user).exclude(votes__voter=user)
+
+
+def import_from_json(data):
+    keys = ('title', 'abstract', 'description', 'audience_level')
+
+    for raw_proposal in data:
+        author = ProposalAuthor.objects.get_or_create(
+            name=raw_proposal['name'],
+            email=raw_proposal['email'],
+        )[0]
+        timestamp = parse(raw_proposal['created_at'])
+
+        cleaned_data = {k: raw_proposal[k] for k in keys}
+
+        try:
+            proposal = Proposal.objects.get(added_on=timestamp)
+        except Proposal.DoesNotExist:
+            proposal = Proposal(added_on=timestamp)
+
+        if proposal.data == cleaned_data:
+            continue
+
+        cleaned_data['timestamp'] = timezone.now().strftime('%Y-%m-%dT%H:%M:%S')
+
+        if proposal.pk:
+            # Proposal content has changed
+            proposal.updated_on = timezone.now()
+        proposal.author = author
+        proposal.data = cleaned_data
+        # Django bug fixed in 2.2.1
+        proposal.data_history.append(cleaned_data)
+        proposal.language = detect(cleaned_data['abstract'])
+        proposal.save()

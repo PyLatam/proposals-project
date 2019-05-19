@@ -97,7 +97,7 @@ class ProposalVote(models.Model):
         related_name='votes',
     )
     added_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(auto_now=True)
+    updated_on = models.DateTimeField(blank=True, null=True)
     decision = models.PositiveSmallIntegerField(choices=DECISION_CHOICES, db_index=True)
 
     class Meta:

@@ -12,12 +12,11 @@
             {{ pr.proposal_render(proposal) }}
         </div>
         <div class="col-md-4" id="right-column">
-            {{ pr.user_vote_render(existing_vote) }}
-
             {% if existing_vote %}
                 {{ pr.existing_vote_render(votes) }}
+            {% else %}
+                {{ pr.user_vote_render(existing_vote) }}
             {% endif %}
-
             <div class="alert alert-warning">
                 <p>Out of respect for potential speakers and your fellow committee
                     members, please treat all of this information as confidential.
