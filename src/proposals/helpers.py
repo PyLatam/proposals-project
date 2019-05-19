@@ -51,6 +51,8 @@ def import_from_json(data):
             proposal = Proposal.objects.get(added_on=timestamp)
         except Proposal.DoesNotExist:
             proposal = Proposal(added_on=timestamp)
+        else:
+            cleaned_data['timestamp'] = proposal.data['timestamp']
 
         if proposal.data == cleaned_data:
             continue
