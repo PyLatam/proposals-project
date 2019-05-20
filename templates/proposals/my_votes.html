@@ -10,8 +10,7 @@
         <th data-column="proposal">Id</th>
         <th data-column="title">Talk</th>
         <th data-column="vote">Vote</th>
-        <th data-column="updated_on" data-reverse="1">When</th>
-        <th data-column="updated" data-reverse="1" class="warning">Outdated</th>
+        <th data-column="added_on" data-reverse="1">When</th>
     </tr>
     </thead>
     <tbody>
@@ -26,8 +25,7 @@
                         <span class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span>
                     {% endif %}
                 </td>
-                <td>{{ vote.updated_on }}</td>
-                <td>{% if vote.outdated %}<span class="glyphicon glyphicon-asterisk"></span>{% endif %}</td>
+                <td>{{ vote.added_on }}</td>
             </tr>
         {% endfor %}
     </tbody>

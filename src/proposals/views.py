@@ -44,7 +44,7 @@ def proposal_vote(request, proposal_id):
 
 @active_user_required
 def votes_view(request):
-    votes = helpers.get_votes_for_user(request.user)
+    votes = request.user.votes.all()
     context = {
         'percent': helpers.get_vote_percentage(request.user),
         'votes': votes,

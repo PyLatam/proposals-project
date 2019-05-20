@@ -3,24 +3,16 @@ from dateutil.parser import parse
 from langdetect import detect
 
 from django.db.models import OuterRef, Subquery
-from django.db import models
 from django.utils import timezone
 
 from .models import Proposal, ProposalAuthor
-
-
-def get_votes_for_user(user):
-    updated_proposal = Proposal.objects.filter(
-        pk=models.OuterRef('proposal'),
-        updated_on__gt=models.OuterRef('updated_on'),
-    )
-    return user.votes.annotate(outdated=models.Exists(updated_proposal))
 
 
 def get_vote_percentage(user):
     total = get_proposals(user).count()
     votes = user.votes.count()
     return "%0.2f" % (100.0 * votes/total)
+
 
 def get_outdated_proposals(user):
     votes = user.votes.filter(proposal=OuterRef('pk')).values('updated_on')

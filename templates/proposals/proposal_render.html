@@ -49,7 +49,7 @@
     </div>
 {% endmacro %}
 
-{% macro user_vote_render(existing_vote) %}
+{% macro user_vote_render() %}
     <div class="panel panel-primary" id="user-vote-block">
         <div class="panel-heading"
              data-content="These votes were loaded from your local browser cache, and are not yet saved."
@@ -68,7 +68,7 @@
                             <button type="button" id="standard-id-1" class="btn btn-default" data-val="1">
                                 <span class="glyphicon glyphicon-remove" title="Does Not Meet Standard"></span>
                             </button>
-                            <input name="vote" value="{{ existing_vote|default("-1", true) }}" type="hidden">
+                            <input name="vote" value="-1" type="hidden">
                         </div>
                     </td>
                     <td>
