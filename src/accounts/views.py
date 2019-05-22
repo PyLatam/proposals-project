@@ -1,8 +1,11 @@
 from django.conf import settings
 from django.contrib.auth.views import LogoutView
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.contrib import messages
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
+
+from .forms import UserPreferencesForm
+from .decorators import active_user_required
 
 
 def login(request):
@@ -13,8 +16,12 @@ def logout(request):
     return LogoutView.as_view(template_name='accounts/logout.html')(request)
 
 
-@login_required
-def user_staging(request):
-    if request.user.is_active:
+@active_user_required
+def user_preferences(request):
+    form = UserPreferencesForm(request.POST or None)
+
+    if form.is_valid():
+        request.user.set_language(form.cleaned_data['language'])
+        messages.success(request, 'Preferences saved')
         return redirect(settings.LOGIN_REDIRECT_URL)
-    return TemplateView.as_view(template_name='accounts/staging.html')(request)
+    return render(request, 'accounts/preferences.html', {'form': form})

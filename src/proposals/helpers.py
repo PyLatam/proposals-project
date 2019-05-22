@@ -51,7 +51,7 @@ def import_from_json(data):
 
         cleaned_data['timestamp'] = timezone.now().strftime('%Y-%m-%dT%H:%M:%S')
 
-        if proposal.pk:
+        if not proposal._state.adding:
             # Proposal content has changed
             proposal.updated_on = timezone.now()
         proposal.author = author

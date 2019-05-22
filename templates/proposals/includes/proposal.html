@@ -1,0 +1,48 @@
+{% load core_tags %}
+
+<ul class="nav nav-tabs" role="tablist">
+    {% if proposal.updated_on %}
+        {% for version in proposal.data_history %}
+            <li class="{% if forloop.first %} active{% endif %}">
+                <a class="tab-button" href="#rev-{{ forloop.index0 }}">{{ version.timestamp|date }}</a>
+            </li>
+        {% endfor %}
+    {% else %}
+        <li class="active">
+            <a class="tab-button" href="#rev-0">{{ proposal.added_on|date }}</a>
+        </li>
+    {% endif %}
+</ul>
+<div class="tab-content">
+    {% for version in proposal.data_history %}
+        <div class="tab-pane{% if forloop.first %} active{% endif %}" id="rev-{{ forloop.index0 }}">
+            <h1>{{ version.title }}</h1>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Created</th>
+                    <td>{{ proposal.added_on|date }}</td>
+                </tr>
+                {% if proposal.updated_on %}
+                    <tr>
+                        <th>Last Updated</th>
+                        <td>{{ version.timestamp|date }}</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+            <h3>Abstract</h3>
+            <p>
+                {{ version.abstract|markdown }}
+            </p>
+            <h3>Description</h3>
+            <p>
+                {{ version.description|markdown }}
+            </p>
+            <h3>Audience</h3>
+            <p>
+                {{ version.audience_level }}
+            </p>
+        </div>
+    {% endfor %}
+</div>

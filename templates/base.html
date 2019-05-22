@@ -33,19 +33,19 @@
                 PyCon Latam Talk Review
             </a>
         </div>
-        {% if not request.user %}
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="{% url 'login' %}">Log In</a></li>
-                </ul>
-            </div>
-        {% else %}
+        {% if request.user.is_authenticated %}
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'votes_list' %}">My Votes</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="pull-right" href="{% url 'logout' %}">Log Out</a></li>
+                </ul>
+            </div>
+        {% else %}
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'login' %}">Log In</a></li>
                 </ul>
             </div>
         {% endif %}

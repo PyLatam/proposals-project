@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'proposals/includes/progress.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8" id="left-column">
+            {% include 'proposals/includes/proposal.html' %}
+        </div>
+        <div class="col-md-4" id="right-column">
+            {% include 'proposals/includes/vote_form.html' %}
+            {% if existing_vote %}
+                <div class="panel panel-default" id="existing-votes-block">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Votes</h3>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Vote</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for vote in votes %}
+                            <tr>
+                                <td>{{ vote.voter.get_full_name }}</td>
+                                <td>
+                                    {% if vote.in_favor %}
+                                        <span class="label label-success"><span
+                                                class="glyphicon glyphicon-ok"></span></span>
+                                    {% elif vote.is_skipped %}
+                                        <span class="label label-warning"><span
+                                                class="glyphicon glyphicon-warning-sign"></span></span>
+                                    {% else %}
+                                        <span class="label label-danger"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            <div class="alert alert-warning">
+                <p>Out of respect for potential speakers and your fellow committee
+                    members, please treat all of this information as confidential.
+                    The contents of proposals, votes, and discussions should not be
+                    shared outside the program committee.</p>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

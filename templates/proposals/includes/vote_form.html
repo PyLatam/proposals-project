@@ -1,0 +1,39 @@
+<div class="panel panel-primary" id="user-vote-block">
+    <div class="panel-heading" id="vote-panel">
+        <h3 class="panel-title">This Proposal...</h3>
+    </div>
+    <form method="POST" action="{% url 'proposal_view' proposal.pk %}" id="vote-form">
+        {% csrf_token %}
+        <table class="table">
+            <tr>
+                <td>
+                    <div class="btn-group btn-group-xs voting-stripe" style="min-width:75px;">
+                        <button type="button" id="standard-id-2" class="btn btn-default" data-val="2">
+                            <span class="glyphicon glyphicon-ok" title="Meets Standard"></span>
+                        </button>
+                        <button type="button" id="standard-id-1" class="btn btn-default" data-val="0">
+                            <span class="glyphicon glyphicon-warning-sign" title="Skip"></span>
+                        </button>
+                        <button type="button" id="standard-id-1" class="btn btn-default" data-val="1">
+                                            <span class="glyphicon glyphicon-remove"
+                                                  title="Does Not Meet Standard"></span>
+                        </button>
+                        <input name="vote" value="-1" type="hidden">
+                    </div>
+                </td>
+                <td>
+                    <small>I want to see this!</small>
+                </td>
+            </tr>
+        </table>
+        <div class="panel-footer">
+            {% if existing_vote %}
+                <a href="/" class="btn btn-default btn-lg">Next Proposal &raquo;</a>
+            {% endif %}
+            <button type="Submit" class="btn btn-primary pull-right" id="save"
+                    {% if not existing_vote %}disabled="disabled"{% endif %}>Save Vote
+            </button>
+            <div class="clearfix"></div>
+        </div>
+    </form>
+</div>

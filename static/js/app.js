@@ -7,27 +7,6 @@ function vote_click(){
     $('#save').attr('disabled', $('#vote-form input[value=-1]').length > 0);
 }
 
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-
-function save_vote(ev){
-    ev.preventDefault();
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                var csrftoken = $("[name=csrfmiddlewaretoken]").val();
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-    $.post('vote/', $('#vote-form').serialize(), null, 'html').then(function(data){
-        $('#existing-votes-block').remove();
-        $('#user-vote-block').replaceWith(data);
-    });
-}
 
 function table_sorter($table, data_src, row_template, extra_column_functions){
     var data = data_src,
@@ -83,7 +62,6 @@ $(document).ready(function(){
 
     //Screening
     $('#right-column').on('click', '.voting-stripe button', vote_click);
-    $('#right-column').on('click', '#save', save_vote);
     
     $('.tab-button').on('click', function(ev){
         console.log('click', $(this));

@@ -22,7 +22,7 @@ ENABLE_SYNCING = False
 STATIC_ROOT = '/static'
 #STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 INSTALLED_APPS.extend([
-    # Third party
+    'core',
     'accounts',
     'proposals',
     'social_django',
@@ -49,8 +49,7 @@ SOCIAL_AUTH_SANITIZE_REDIRECTS = True
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = reverse_lazy(LOGIN_REDIRECT_URL)
 SOCIAL_AUTH_SESSION_EXPIRATION = True
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
-SOCIAL_AUTH_INACTIVE_USER_URL = reverse_lazy('staging')
-SOCIAL_AUTH_INACTIVE_USER_LOGIN = True
+SOCIAL_AUTH_INACTIVE_USER_LOGIN = False
 
 SOCIAL_AUTH_PIPELINE = (
     # Get the information we can about the user and return it in a simple
@@ -97,14 +96,6 @@ ADMIN_EMAILS = ['vote@pylatam.org']
 DEFAULT_FROM_EMAIL = 'PyLatam noreply@pylatam.org'
 
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.jinja2.Jinja2',
-        'DIRS': ['templates/proposals'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'environment': 'core.jinja2.environment',
-        },
-    },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['templates'],

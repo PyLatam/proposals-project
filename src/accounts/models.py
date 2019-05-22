@@ -4,15 +4,10 @@ from django.contrib.postgres.fields import ArrayField
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
-from django.utils import translation
 
 from core.fields import UUIDPrimaryKey
 
 from .managers import UserManager
-
-
-def default_language():
-    return [translation.get_language() or settings.LANGUAGE_CODE]
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -25,7 +20,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField('last name', max_length=30, blank=True)
     email = models.EmailField('email address', unique=True)
     date_joined = models.DateTimeField('date joined', default=timezone.now)
-    is_active = models.BooleanField(default=False, db_index=True)
+    is_active = models.BooleanField(default=True, db_index=True)
     is_staff = models.BooleanField(
         'staff status',
         default=False,
@@ -33,8 +28,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     languages = ArrayField(
         base_field=models.CharField(max_length=15),
-        default=default_language,
         blank=True,
+        null=True,
     )
 
     objects = UserManager()
@@ -62,3 +57,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def set_language(self, language):
+        if language == 'all':
+            self.languages = [lang[0] for lang in settings.LANGUAGES]
+        else:
+            self.languages = [language]
+        self.save(update_fields=('languages',))

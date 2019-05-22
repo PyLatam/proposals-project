@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import ArrayField, JSONField
 from django.db import models
 from django.db import transaction
+from django.utils import timezone
 
 from core.fields import UUIDPrimaryKey
 
@@ -59,6 +60,8 @@ class Proposal(models.Model):
             vote = self.votes.select_for_update().get(voter=user)
         except ProposalVote.DoesNotExist:
             vote = ProposalVote(voter=user, proposal=self)
+        else:
+            vote.updated_on = timezone.now()
         vote.decision = decision
         vote.save()
         return vote
@@ -78,11 +81,13 @@ class ProposalAuthor(models.Model):
 
 
 class ProposalVote(models.Model):
+    SKIP = 0
     NO = 1
     YES = 2
     DECISION_CHOICES = (
-        (NO, 'No'),
         (YES, 'Yes'),
+        (SKIP, 'Skip'),
+        (NO, 'No'),
     )
 
     id = UUIDPrimaryKey()
@@ -97,6 +102,7 @@ class ProposalVote(models.Model):
         related_name='votes',
     )
     added_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(blank=True, null=True)
     decision = models.PositiveSmallIntegerField(choices=DECISION_CHOICES, db_index=True)
 
     class Meta:
@@ -108,3 +114,6 @@ class ProposalVote(models.Model):
     @property
     def in_favor(self):
         return self.decision == self.YES
+
+    def is_skipped(self):
+        return self.decision == self.SKIP
