@@ -5,16 +5,17 @@
     <table class="table table-striped table-condensed" id="votes-table">
         <thead>
         <tr>
-            <th data-column="proposal">Id</th>
+            <!-- <th data-column="proposal">Id</th> -->
             <th data-column="title">Talk</th>
             <th data-column="vote">Vote</th>
             <th data-column="added_on" data-reverse="1">When</th>
+            <th data-column="vote_tally"">Vote Tally</th>
         </tr>
         </thead>
         <tbody>
         {% for vote in votes %}
             <tr{% if vote.outdated %} class="warning"{% endif %}>
-                <td>{{ vote.proposal.pk }}</td>
+                <!-- <td>{{ vote.proposal.pk }}</td> -->
                 <td><a href="{% url 'proposal_view' vote.proposal.pk %}">{{ vote.proposal.title }}</a></td>
                 <td>
                     {% if vote.in_favor %}
@@ -26,6 +27,15 @@
                     {% endif %}
                 </td>
                 <td>{% firstof vote.updated_on vote.added_on %}</td>
+                <td>
+                  <table class='percentage-bar'>
+                    <tr>
+                      <td width="20%" class='percentage-bar__deny'>&nbsp;</td>
+                      <td width="20%" class='percentage-bar__maybe'>&nbsp;</td>
+                      <td width="60%" class='percentage-bar__approve'>&nbsp;</td>
+                    </tr>
+                  </table>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

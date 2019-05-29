@@ -45,7 +45,7 @@
                     </table>
                 </div>
             {% endif %}
-            <div class="alert alert-warning">
+            <div class="alert alert-warning respect">
                 <p>Out of respect for potential speakers and your fellow committee
                     members, please treat all of this information as confidential.
                     The contents of proposals, votes, and discussions should not be
@@ -54,3 +54,14 @@
         </div>
     </div>
 {% endblock body %}
+
+{% block extrajs %}
+<script>
+
+  const updateVoteValue = (value) => {
+    $('#voteValue').val(value);
+  }
+  $("button").click(function(){updateVoteValue($(this).attr("data-val"))});
+
+</script>
+{% endblock extrajs %}

@@ -1,0 +1,119 @@
+{% import "vote_display.html" as vd with context %}
+
+{% macro proposal_render(proposal) %}
+    <ul class="nav nav-tabs" role="tablist">
+        {% if proposal.updated_on %}
+            {% for version in proposal.data_history %}
+                <li class="{% if loop.first %} active{% endif %}">
+                    <a class="tab-button" href="#rev-{{ loop.index0 }}">{{ version.timestamp|date }}</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li class="active">
+                <a class="tab-button" href="#rev-0">{{ proposal.added_on|date }}</a>
+            </li>
+        {% endif %}
+    </ul>
+    <div class="tab-content">
+        {% for version in proposal.data_history %}
+            <div class="tab-pane{% if loop.first %} active{% endif %}" id="rev-{{ loop.index0 }}">
+                <h1>{{ version.title }}</h1>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Created</th>
+                        <td>{{ proposal.added_on|date }}</td>
+                    </tr>
+                    {% if proposal.updated_on %}
+                        <tr>
+                            <th>Last Updated</th>
+                            <td>{{ version.timestamp|date }}</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+                <h3>Abstract</h3>
+                <p>
+                    {{ version.abstract|markdown }}
+                </p>
+                <h3>Description</h3>
+                <p>
+                    {{ version.description|markdown }}
+                </p>
+                <h3>Audience</h3>
+                <p>
+                    {{ version.audience_level }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro user_vote_render() %}
+    <div class="panel panel-primary" id="user-vote-block">
+        <div class="panel-heading"
+             data-content="These votes were loaded from your local browser cache, and are not yet saved."
+             id="vote-panel">
+            <h3 class="panel-title">This Proposal...</h3>
+        </div>
+        <form method="POST" action="vote/" id="vote-form">
+            {{ csrf_input }}
+            <table class="table">
+                <tr>
+                    <td>
+                        <div class="btn-group btn-group-xs voting-stripe" style="min-width:75px;">
+                            <button type="button" id="standard-id-2" class="btn btn-default" data-val="2">
+                                <span class="glyphicon glyphicon-ok" title="Meets Standard"></span>
+                            </button>
+                            <button type="button" id="standard-id-1" class="btn btn-default" data-val="1">
+                                <span class="glyphicon glyphicon-remove" title="Does Not Meet Standard"></span>
+                            </button>
+                            <input name="vote" value="-1" type="hidden">
+                        </div>
+                    </td>
+                    <td>
+                        <small>I want to see this!</small>
+                    </td>
+                </tr>
+            </table>
+            <div class="panel-footer">
+                {% if existing_vote %}
+                    <a href="/" class="btn btn-default btn-lg">Next Proposal &raquo;</a>
+                {% endif %}
+                <button type="Submit" class="btn btn-primary pull-right" id="save"
+                        {% if not existing_vote %}disabled="disabled"{% endif %}>Save Vote</button>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+{% endmacro %}
+
+{% macro existing_vote_render(votes) %}
+    <div class="panel panel-default" id="existing-votes-block">
+        <div class="panel-heading">
+            <h3 class="panel-title">Votes</h3>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>User</th>
+                <th>Vote</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for vote in votes %}
+                <tr>
+                    <td>{{ vote.voter.get_full_name() }}</td>
+                    <td>
+                        {% if vote.in_favor %}
+                            <span class="label label-success"><span class="glyphicon glyphicon-ok"></span></span>
+                        {% else %}
+                            <span class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endmacro %}

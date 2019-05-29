@@ -5,6 +5,13 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-social.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+
+
+
     {% block extracss %}{% endblock %}
 
     <link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-touch-icon-57x57.png">
@@ -24,21 +31,32 @@
     <meta name="msapplication-TileColor" content="#b91d47">
     <meta name="msapplication-TileImage" content="/static/favicons/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+
+
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
+
+
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">
-                PyCon Latam Talk Review
-            </a>
-        </div>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <img class=".logo" src="/static/img/pylatamheader.svg">
+              <a class="navbar-brand" href="/">Talk Review</a>
+            </div>
+
+
+
         {% if request.user.is_authenticated %}
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'votes_list' %}">My Votes</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
                     <li><a class="pull-right" href="{% url 'logout' %}">Log Out</a></li>
                 </ul>
             </div>
@@ -61,10 +79,17 @@
     {% block body %}
     {% endblock body %}
 </div>
+
+<div class="body-border--bottom">
+
+</div>
+
+
 <script src="/static/js/jquery-2.1.4.min.js"></script>
 <script src="/static/js/underscore-1.8.3.min.js"></script>
 <script src="/static/js/bootstrap.3.3.5.min.js"></script>
 <script src="/static/js/app.js"></script>
+
 {% block extrajs %}{% endblock extrajs %}
 </body>
 </html>

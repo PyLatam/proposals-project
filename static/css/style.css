@@ -1,7 +1,51 @@
+body{
+  background-color: #C3D6E5;
+}
+
+body{
+    min-height:100vh;
+
+    /* background-attachment: fixed; */
+    /* color:white; */
+}
+
+.body-border--bottom{
+  position:fixed;
+  height:300px;
+  bottom:0;
+  left:0;
+  width:100%;
+  z-index:-1;
+  opacity:0.8;
+  background-image: url(../img/Wave1.svg), url(../img/Wave2.svg), url(../img/Wave3.svg);    background-size: 20vh 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+
+.navbar-header img {
+    height: 50px;
+    float: left;
+    padding: 4px 20px 4px 0;
+}
+
+.navbar-brand {
+  padding: 15px 5px;
+}
+
+ul.nav.navbar-nav{
+  float:right
+}
+
 .panel table {
     margin-bottom: 0;
 }
 
+.container-fluid h4{
+  /* padding: 4% 0; */
+  line-height: 1.8em;
+  font-weight: 400;
+}
 
 #accept li, #unranked li {
     cursor: pointer;
@@ -48,4 +92,158 @@
     top: 49%;
     overflow-y: scroll;
     opacity: 0.9;
+}
+
+div#left-column, .table{
+    background-color: rgba(255,255,255,.9);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+
+
+.progress {
+  height: 2px;
+}
+
+
+/* BACKEND PERCENTAGE BAR */
+
+.percentage-bar {
+  width:100%;
+  border-radius: 2px;
+  font-size: 3px;
+  overflow:hidden;
+}
+
+.percentage-bar__deny { background-color: #d9534f; }
+.percentage-bar__maybe { background-color: #f0ad4e; }
+.percentage-bar__approve {  background-color: #5cb85c; }
+
+
+
+/* VOTING MECHANISM */
+
+
+.vote-container i {margin:0px;}
+
+.vote-container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  position:fixed;
+  right:10px;
+  bottom:10px;
+
+}
+
+.vote__prompt{
+  display:flex;
+  flex-direction:column;
+  width:140px;
+  box-sizing:border-box;
+  color:#fff;
+  overflow:hidden;
+  max-height:17px;
+  transition:0.2s;
+}
+
+.vote__prompt:hover{
+  max-height:200px;
+  cursor:default;
+}
+
+.vote__prompt span {
+  font-size:12px;
+  display:block;
+  align-self:flex-end;
+  background:#666;
+  padding:2px 12px;
+  border-radius:16px 16px 0px 0px;
+}
+
+.vote__prompt p {
+  background:#666;
+  font-size:12px;
+  margin:0px;
+  padding:4px 8px;
+  text-align:center;
+}
+
+.vote__prompt p:first-of-type {
+  border-radius:8px 0px 0px 0px;
+  letter-spacing:0.5px;
+  padding-top:8px;
+}
+
+.vote__prompt p:nth-of-type(2) {
+  font-weight:bold;
+  letter-spacing:1.5px;
+  padding-bottom:8px;
+}
+
+.vote__buttons {
+  width:200px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:4px;
+  border-radius:35px;
+  background: #16b0be;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.action-bar:hover{cursor:pointer;}
+
+.vote__buttons .ab {
+  background:#fff;
+  border:2.5px solid #16b0be;
+  outline:none;
+  border-radius:50%;
+  transition:0.2s;
+  font-size:1.1rem;
+  filter:blur(0px);
+  z-index:5;
+}
+
+.vote__buttons .ab:hover{
+  cursor:pointer;
+  transform:scale(0.9);
+}
+
+.vote__buttons .ab:active{
+  transform:scale(0.75);
+}
+
+.action--no {
+  color:#F44336;
+  width:65px;
+  height:65px;
+}
+
+.action--skip {
+  color:#FF9800;
+  width:50px;
+  height:50px;
+}
+
+.action--yes{
+  color: #4CAF50;
+  width:65px;
+  height:65px;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-header img {
+      padding: 4px 5px 4px 15px;
+  }
+}
+
+
+@media screen and (max-width: 991px) {
+  .respect{
+      margin: 20px 0;
+
+  }
 }
