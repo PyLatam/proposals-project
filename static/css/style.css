@@ -190,7 +190,7 @@ div#left-column, .table{
   justify-content:space-between;
   padding:4px;
   border-radius:35px;
-  background: #16b0be;
+  background: #dfbc47;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
@@ -198,11 +198,11 @@ div#left-column, .table{
 
 .vote__buttons .ab {
   background:#fff;
-  border:2.5px solid #16b0be;
+  border:2.5px solid #dfbc47;
   outline:none;
   border-radius:50%;
   transition:0.2s;
-  font-size:1.1rem;
+  font-size:1.2rem;
   filter:blur(0px);
   z-index:5;
 }
@@ -210,6 +210,8 @@ div#left-column, .table{
 .vote__buttons .ab:hover{
   cursor:pointer;
   transform:scale(0.9);
+  /* font-size:1.6rem; */
+
 }
 
 .vote__buttons .ab:active{
@@ -245,5 +247,11 @@ div#left-column, .table{
   .respect{
       margin: 20px 0;
 
+  }
+  .vote__buttons {
+    background: #16b0be;
+  }
+  .vote__buttons .ab {
+    border:2.5px solid #16b0be;
   }
 }
