@@ -5,7 +5,7 @@ from django.views.decorators.cache import never_cache
 from accounts.decorators import active_user_required
 
 from . import helpers
-from .helpers import get_proposals_for_voting
+from .helpers import get_proposals_for_list, get_proposals_for_voting
 from .models import ProposalVote
 
 
@@ -34,10 +34,9 @@ def proposal_view(request, proposal_id):
 
 @active_user_required
 def user_votes_view(request):
-    votes = request.user.votes.all()
     context = {
         'percent': helpers.get_vote_percentage(request.user),
-        'votes': votes,
+        'proposals': get_proposals_for_list(request.user),
     }
     return render(request, 'proposals/user_votes_list.html', context)
 

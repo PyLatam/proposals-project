@@ -2,10 +2,11 @@ from dateutil.parser import parse
 
 from langdetect import detect
 
-from django.db.models import OuterRef, Subquery
+from django.db.models import Count, OuterRef, Q, Subquery
+from django.db.models.functions import Coalesce
 from django.utils import timezone
 
-from .models import Proposal, ProposalAuthor
+from .models import Proposal, ProposalAuthor, ProposalVote
 
 
 def get_vote_percentage(user):
@@ -25,6 +26,24 @@ def get_proposals(user):
 
 def get_proposals_for_voting(user):
     return get_proposals(user).exclude(votes__voter=user)
+
+
+def get_proposals_for_list(user):
+    votes = (
+        user
+        .votes
+        .filter(proposal=OuterRef('id'))
+        .annotate(date=Coalesce('updated_on', 'added_on'))
+    )
+    proposals = Proposal.objects.filter(votes__voter=user)
+    proposals = proposals.annotate(
+        y_vote_count=Count('votes', filter=Q(votes__decision=ProposalVote.YES)),
+        n_vote_count=Count('votes', filter=Q(votes__decision=ProposalVote.NO)),
+        s_vote_count=Count('votes', filter=Q(votes__decision=ProposalVote.SKIP)),
+        user_vote=Subquery(votes.values('decision')),
+        user_vote_date=Subquery(votes.values('date')),
+    )
+    return proposals.order_by('-user_vote_date')
 
 
 def import_from_json(data):

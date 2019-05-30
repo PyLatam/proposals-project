@@ -13,7 +13,7 @@ def login(request):
 
 
 def logout(request):
-    return LogoutView.as_view(template_name='accounts/logout.html')(request)
+    return LogoutView.as_view()(request)
 
 
 @active_user_required

@@ -28,6 +28,10 @@ def date_filter(d):
 def time_to_minutes(d):
     return d.hour * 60 + d.minute
 
+@register.filter()
+def percentage(x, y):
+    return 100 * float(x) / float(y)
+
 
 @register.filter()
 def markdown(s):

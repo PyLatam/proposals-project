@@ -3,8 +3,6 @@
 {% block body %}
     <h1>Login and Vote!</h1>
     <h4>This website is for members of the PyCon Latam program committee. Let your voice be heard, login to vote on the hundreds of proposals submited to Pycon Latam.</h4>
-    <a class="btn btn-block btn-social btn-lg btn-google" href="{% url 'social:begin' backend='google-oauth2' %}" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fab fa-google"></i>Sign in with Google</a>
-    <a class="btn btn-block btn-social btn-lg btn-github" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fab fa-github"></i>Sign in with GitHub</a>
-
-
+    <a class="btn btn-block btn-social btn-lg btn-google" href="{% url 'social:begin' 'google-oauth2' %}" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fab fa-google"></i>Sign in with Google</a>
+    <a class="btn btn-block btn-social btn-lg btn-github" href="{% url 'social:begin' 'github' %}" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fab fa-github"></i>Sign in with GitHub</a>
 {% endblock body %}
