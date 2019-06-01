@@ -46,7 +46,10 @@ def get_proposals_for_list(user):
         .filter(proposal=OuterRef('id'))
         .annotate(date=Coalesce('updated_on', 'added_on'))
     )
-    proposals = Proposal.objects.filter(votes__voter=user)
+    proposals = Proposal.objects.filter(
+        votes__voter=user,
+        language__in=user.languages,
+    )
     proposals = proposals.annotate(
         y_vote_count=SQCount(all_votes.filter(decision=ProposalVote.YES)),
         n_vote_count=SQCount(all_votes.filter(decision=ProposalVote.NO)),
