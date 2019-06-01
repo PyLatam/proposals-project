@@ -1,9 +1,49 @@
 {% extends "base.html" %}
 
 {% block body %}
-    <form method="post" action="{% url 'preferences' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit"/>
-    </form>
+  <section>
+      <h1>TEST</h1>
+      <p>Please select the language  of the talks
+        you would like to review.</p>
+      <form method="post" action="{% url 'preferences' %}">
+          {% csrf_token %}
+          <!-- {{ form.as_p }} -->
+
+
+          <div class="container">
+            <button href="" title="Button push blue/green" class="button btnPush btnBlueGreen" data-val="en">English</button>
+            <div class="clear"></div>
+          </div>
+
+          <div class="container">
+            <button href="" title="Button push purple" class="button btnPush btnPurple" data-val="es">Spanish</button>
+            <div class="clear"></div>
+          </div>
+
+          <div class="container">
+            <button href="" title="Button push orange" class="button btnPush btnOrange" data-val="all">Both</button>
+            <div class="clear"></div>
+          </div>
+
+          <input id="langvalue" name="language" value="" type="hidden"/>
+      </form>
+  </section>
+
+  <div class="alert alert-warning respect">
+      <h3>Por que la informacion esta solo en ingles?</h3>
+      <p>Aqui van las razones de porque la conferencia tiene este
+        sistema de revision de charlas solo en ingles. Gracias por
+        su paciencia y entendimiento!</p>
+  </div>
 {% endblock body %}
+
+{% block extrajs %}
+<script>
+
+  const updateVoteValue = (value) => {
+    $('#langvalue').val(value);
+  }
+  $("button").click(function(){updateVoteValue($(this).attr("data-val"))});
+
+</script>
+{% endblock extrajs %}

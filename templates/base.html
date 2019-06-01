@@ -41,12 +41,14 @@
 
 
         <div class="navbar-header">
+              {% if request.user.is_authenticated %}
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
+              {% endif %}
               <img class=".logo" src="/static/img/pylatamheader.svg">
               <a class="navbar-brand" href="/">Talk Review</a>
             </div>
@@ -57,15 +59,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'votes_list' %}">My Votes</a></li>
+                    <li><a href="{% url 'preferences' %}">Preferences</a></li>
                     <li><a class="pull-right" href="{% url 'logout' %}">Log Out</a></li>
                 </ul>
             </div>
         {% else %}
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'login' %}">Log In</a></li>
                 </ul>
-            </div>
+            </div> -->
         {% endif %}
     </div>
 </nav>
@@ -73,11 +76,12 @@
 <div class="container-fluid">
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-warning" role="alert">{{ message }}</div>
+            <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
         {% endfor %}
     {% endif %}
     {% block body %}
     {% endblock body %}
+
 </div>
 
 <div class="body-border--bottom">

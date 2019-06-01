@@ -13,6 +13,7 @@ def login(request):
 
 
 def logout(request):
+    messages.info(request, 'You are logged out. Thanks for voting!')
     return LogoutView.as_view()(request)
 
 

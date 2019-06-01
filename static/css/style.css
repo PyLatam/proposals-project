@@ -1,16 +1,31 @@
 body{
   background-color: #C3D6E5;
+  min-height:100vh;
 }
 
-body{
-    min-height:100vh;
+h1{
+  font-size: 2.3em;
+  font-weight: 700;
+  font-style: normal;
+  color: #193B54;
+}
 
-    /* background-attachment: fixed; */
-    /* color:white; */
+section{
+  margin-bottom: 20px;
+  text-align: center;
+
+}
+
+section:first-of-type p{
+  color:#3A7AAB;
+  font-size: 25px;
+  padding-top: 10px;
+  text-align: center;
 }
 
 .body-border--bottom{
   position:fixed;
+  padding:0;
   height:300px;
   bottom:0;
   left:0;
@@ -236,6 +251,12 @@ div#left-column, .table{
   height:65px;
 }
 
+.respect{
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 @media screen and (max-width: 768px) {
   .navbar-header img {
       padding: 4px 5px 4px 15px;
@@ -244,6 +265,7 @@ div#left-column, .table{
 
 
 @media screen and (max-width: 991px) {
+
   .respect{
       margin: 20px 0;
 
@@ -254,4 +276,92 @@ div#left-column, .table{
   .vote__buttons .ab {
     border:2.5px solid #16b0be;
   }
+}
+
+/* 3D BUTTONS */
+
+.clear {
+  clear: both;
+}
+
+.container {
+  padding-top: 1em;
+  margin:-5px auto;
+  padding: 0;
+  /* border-top:
+    solid
+    1px
+    #CCC; */
+}
+
+button.button {
+  font-size: 1.5em;
+  display: block;
+  position: relative;
+  /* float: left; */
+  /* width: 80%; */
+  min-width: 200px;
+  max-width: 300px;
+  padding: 15px 0;
+  margin: 10px auto 10px auto;
+  font-weight: 400;
+  text-align: center;
+  /* line-height: 50px; */
+  color: #FFF;
+  border-radius: 5px;
+  transition: all 0.2s ;
+}
+
+.btnBlueGreen {
+  background: #00AE68;
+}
+
+.btnLightBlue {
+  background: #5DC8CD;
+}
+
+.btnOrange {
+  background: #FFAA40;
+}
+
+.btnPurple {
+  background: #A74982;
+}
+
+/* 3D */
+.btnBlueGreen.btnPush {
+  box-shadow: 0px 5px 0px 0px #007144;
+}
+
+.btnLightBlue.btnPush {
+  box-shadow: 0px 5px 0px 0px #1E8185;
+}
+
+.btnOrange.btnPush {
+  box-shadow: 0px 5px 0px 0px #A66615;
+}
+
+.btnPurple.btnPush {
+  box-shadow: 0px 5px 0px 0px #6D184B;
+}
+
+.btnPush:hover {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.btnBlueGreen.btnPush:hover {
+  box-shadow: 0px 0px 0px 0px #007144;
+}
+
+.btnLightBlue.btnPush:hover {
+  box-shadow: 0px 0px 0px 0px #1E8185;
+}
+
+.btnOrange.btnPush:hover {
+  box-shadow: 0px 0px 0px 0px #A66615;
+}
+
+.btnPurple.btnPush:hover {
+  box-shadow: 0px 0px 0px 0px #6D184B;
 }
