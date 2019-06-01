@@ -26,7 +26,7 @@
                         <span class="label label-danger"><span class="glyphicon glyphicon-remove"></span></span>
                     {% endif %}
                 </td>
-                <td>{{ proposal.user_vote_date|date:"SHORT_DATETIME_FORMAT" }}</td>
+                <td>{{ proposal.user_vote_date }}</td>
                 <td>
                     {% localize off %}
                         <table class='percentage-bar'>
