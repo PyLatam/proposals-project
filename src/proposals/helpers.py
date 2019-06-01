@@ -2,11 +2,17 @@ from dateutil.parser import parse
 
 from langdetect import detect
 
-from django.db.models import Count, OuterRef, Q, Subquery
+from django.db import models
+from django.db.models import OuterRef, Subquery
 from django.db.models.functions import Coalesce
 from django.utils import timezone
 
 from .models import Proposal, ProposalAuthor, ProposalVote
+
+
+class SQCount(Subquery):
+    template = "(SELECT count(*) FROM (%(subquery)s) _count)"
+    output_field = models.IntegerField()
 
 
 def get_vote_percentage(user):
@@ -33,7 +39,8 @@ def get_proposals_for_voting(user):
 
 
 def get_proposals_for_list(user):
-    votes = (
+    all_votes = ProposalVote.objects.filter(proposal=OuterRef('pk'))
+    user_votes = (
         user
         .votes
         .filter(proposal=OuterRef('id'))
@@ -41,11 +48,11 @@ def get_proposals_for_list(user):
     )
     proposals = Proposal.objects.filter(votes__voter=user)
     proposals = proposals.annotate(
-        y_vote_count=Count('votes', filter=Q(votes__decision=ProposalVote.YES)),
-        n_vote_count=Count('votes', filter=Q(votes__decision=ProposalVote.NO)),
-        s_vote_count=Count('votes', filter=Q(votes__decision=ProposalVote.SKIP)),
-        user_vote=Subquery(votes.values('decision')),
-        user_vote_date=Subquery(votes.values('date')),
+        y_vote_count=SQCount(all_votes.filter(decision=ProposalVote.YES)),
+        n_vote_count=SQCount(all_votes.filter(decision=ProposalVote.NO)),
+        s_vote_count=SQCount(all_votes.filter(decision=ProposalVote.SKIP)),
+        user_vote=Subquery(user_votes.values('decision')),
+        user_vote_date=Subquery(user_votes.values('date')),
     )
     return proposals.order_by('-user_vote_date')
 
