@@ -16,7 +16,7 @@
         <tbody>
         {% for proposal in proposals %}
             <tr>
-                <td><a href="{% url 'proposal_view' proposal.pk %}">{{ proposal.title }}</a></td>
+                <td><a href="{% url 'proposal_view' proposal.pk %}">{{ proposal.title|truncatechars:80 }}</a></td>
                 <td>
                     {% if proposal.user_vote == 2 %}
                         <span class="label label-success"><span class="glyphicon glyphicon-ok"></span></span>
