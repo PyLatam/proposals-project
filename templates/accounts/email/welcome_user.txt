@@ -1,14 +1,9 @@
 Welcome to the PyCon Latam Program Committee Talk Review!
 
-When you're ready to get started, please log in at http://progcom.njl.us/. 
+When you're ready to get started, please log in at https://vote.pylatam.org.
 
 At that website you will see a talk proposal, chosen randomly from the pool of
 proposals that have the least reviews so far.
-
-Right now we are in the screening stage of talk proposal evaluation.
-
-We talk about proposals on a slack channel; you should receive an invite to the
-slack at https://pylatam.slack.com/ shortly.
 
 Thank you so much for your help in making this year's PyCon Latam program--we can't do
 it without your time and thoughtful input. We hope you have fun reading these

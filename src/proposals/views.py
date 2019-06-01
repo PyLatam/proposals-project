@@ -26,7 +26,7 @@ def proposal_view(request, proposal_id):
     context = {
         'proposal': proposal,
         'percent': helpers.get_vote_percentage(request.user),
-        'votes': proposal.votes.all(),
+        'votes': proposal.votes.filter(voter=request.user),
         'existing_vote': existing_vote,
     }
     return render(request, 'proposals/proposal.html', context)

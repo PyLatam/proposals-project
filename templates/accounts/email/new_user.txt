@@ -1,7 +1,7 @@
 Hi,
 
 {{ user.get_full_name }} ({{ user.email }}) has asked for access to the program committee
-application. Approve them at {{ site.domain }}{% url 'admin:accounts_user_change' user.pk %}
+application.
 
 Regards,
 
