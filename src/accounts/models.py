@@ -60,7 +60,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def set_language(self, language):
         if language == 'all':
-            self.languages = [lang[0] for lang in settings.LANGUAGES]
+            self.languages = [lang[0] for lang in settings.TALK_LANGUAGES]
         else:
             self.languages = [language]
         self.save(update_fields=('languages',))

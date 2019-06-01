@@ -5,7 +5,7 @@ from django.conf import settings
 def languages():
     yield ('all', 'All')
 
-    for choice in settings.LANGUAGES:
+    for choice in settings.TALK_LANGUAGES:
         yield choice
 
 

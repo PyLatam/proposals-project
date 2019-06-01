@@ -101,6 +101,11 @@ SOCIAL_AUTH_PIPELINE = (
 ADMIN_EMAILS = ['vote@pylatam.org']
 DEFAULT_FROM_EMAIL = 'PyLatam noreply@pylatam.org'
 
+TALK_LANGUAGES = (
+    ('en', 'English'),
+    ('es', 'Spanish'),
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
