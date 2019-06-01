@@ -12,6 +12,9 @@ from .models import Proposal, ProposalAuthor, ProposalVote
 def get_vote_percentage(user):
     total = get_proposals(user).count()
     votes = user.votes.count()
+
+    if not total:
+        return '0'
     return "%0.2f" % (100.0 * votes/total)
 
 
@@ -21,7 +24,8 @@ def get_outdated_proposals(user):
 
 
 def get_proposals(user):
-    return Proposal.objects.active().exclude(author__email__iexact=user.email)
+    proposals = Proposal.objects.active().filter(language__in=user.languages)
+    return proposals.exclude(author__email__iexact=user.email)
 
 
 def get_proposals_for_voting(user):
