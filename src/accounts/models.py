@@ -10,6 +10,10 @@ from core.fields import UUIDPrimaryKey
 from .managers import UserManager
 
 
+def language_choices():
+    return [lang[0] for lang in settings.TALK_LANGUAGES]
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
@@ -28,7 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     languages = ArrayField(
         base_field=models.CharField(max_length=15),
-        default=[lang[0] for lang in settings.TALK_LANGUAGES]
+        default=language_choices,
     )
     set_preferences = models.BooleanField(default=False)
 
