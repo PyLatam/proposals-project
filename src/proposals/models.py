@@ -25,7 +25,7 @@ class Proposal(models.Model):
     language = models.CharField(
         max_length=15,
         blank=True,
-        choices=settings.LANGUAGES,
+        choices=settings.TALK_LANGUAGES,
         db_index=True,
     )
     accepted = models.BooleanField(default=False)

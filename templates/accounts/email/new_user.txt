@@ -1,7 +1,6 @@
 Hi,
 
-{{ user.get_full_name }} ({{ user.email }}) has asked for access to the program committee
-application.
+{{ user.get_full_name }} ({{ user.email }}) has signed-up to the program committee application.
 
 Regards,
 

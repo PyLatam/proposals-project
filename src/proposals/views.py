@@ -44,7 +44,7 @@ def user_votes_view(request):
 @never_cache
 @active_user_required
 def landing(request):
-    if not request.user.languages:
+    if not request.user.set_preferences:
         return redirect('preferences')
 
     proposal = get_proposals_for_voting(request.user).order_by('?').first()

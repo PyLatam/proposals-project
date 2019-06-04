@@ -28,9 +28,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     languages = ArrayField(
         base_field=models.CharField(max_length=15),
-        blank=True,
-        null=True,
+        default=[lang[0] for lang in settings.TALK_LANGUAGES]
     )
+    set_preferences = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -63,4 +63,5 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.languages = [lang[0] for lang in settings.TALK_LANGUAGES]
         else:
             self.languages = [language]
-        self.save(update_fields=('languages',))
+        self.set_preferences = True
+        self.save(update_fields=('languages', 'set_preferences'))
