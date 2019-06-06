@@ -2,17 +2,12 @@ from dateutil.parser import parse
 
 from langdetect import detect
 
-from django.db import models
 from django.db.models import OuterRef, Subquery
 from django.db.models.functions import Coalesce
 from django.utils import timezone
 
 from .models import Proposal, ProposalAuthor, ProposalVote
-
-
-class SQCount(Subquery):
-    template = "(SELECT count(*) FROM (%(subquery)s) _count)"
-    output_field = models.IntegerField()
+from .query import SQCount
 
 
 def get_vote_percentage(user):
