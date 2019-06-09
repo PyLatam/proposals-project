@@ -12,8 +12,9 @@ class ProposalAdmin(admin.ModelAdmin):
         'title',
         'author',
         'added_on',
-        'updated_on',
-        'vote_counts',
+        'yes_vote_count',
+        'no_vote_count',
+        'skip_vote_count',
     ]
     list_filter = ['language']
     readonly_fields = [
@@ -24,7 +25,9 @@ class ProposalAdmin(admin.ModelAdmin):
         'audience_level',
         'added_on',
         'updated_on',
-        'vote_counts',
+        'yes_vote_count',
+        'no_vote_count',
+        'skip_vote_count',
         'data',
         'data_history',
         'withdrawn',
@@ -33,6 +36,7 @@ class ProposalAdmin(admin.ModelAdmin):
         (None, {'fields': ('title', 'author', 'abstract', 'description')}),
         ('Dates', {'fields': ('added_on', 'updated_on')}),
         ('Meta', {'fields': ('language', 'audience_level', 'vote_counts', 'withdrawn')}),
+        ('Meta', {'fields': ('yes_vote_count', 'no_vote_count', 'skip_vote_count')}),
         ('History', {'fields': ('data_history',)}),
     )
 
@@ -46,19 +50,23 @@ class ProposalAdmin(admin.ModelAdmin):
         )
         return queryset
 
+    def yes_vote_count(self, obj):
+        return obj.y_vote_count
+    yes_vote_count.admin_order_field = 'y_vote_count'
+
+    def no_vote_count(self, obj):
+        return obj.n_vote_count
+    no_vote_count.admin_order_field = 'n_vote_count'
+
+    def skip_vote_count(self, obj):
+        return obj.s_vote_count
+    skip_vote_count.admin_order_field = 's_vote_count'
+
     def has_add_permission(self, request):
         return False
 
     def has_delete_permission(self, request, obj=None):
         return False
-
-    def vote_counts(self, obj):
-        bits = '\n'.join([
-            f'<li>Y: {obj.y_vote_count}</li>',
-            f'<li>N: {obj.n_vote_count}</li>',
-            f'<li>S: {obj.s_vote_count}</li>',
-        ])
-        return mark_safe(f'<ul>{bits}</ul>')
 
 
 class ProposalInline(admin.TabularInline):
