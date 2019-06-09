@@ -35,8 +35,8 @@ class ProposalAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('title', 'author', 'abstract', 'description')}),
         ('Dates', {'fields': ('added_on', 'updated_on')}),
-        ('Meta', {'fields': ('language', 'audience_level', 'vote_counts', 'withdrawn')}),
-        ('Meta', {'fields': ('yes_vote_count', 'no_vote_count', 'skip_vote_count')}),
+        ('Meta', {'fields': ('language', 'audience_level', 'withdrawn')}),
+        ('Votes', {'fields': ('yes_vote_count', 'no_vote_count', 'skip_vote_count')}),
         ('History', {'fields': ('data_history',)}),
     )
 
