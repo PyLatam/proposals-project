@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.cache import never_cache
@@ -17,7 +18,7 @@ def proposal_view(request, proposal_id):
         pk=proposal_id,
     )
 
-    if request.method == 'POST':
+    if request.method == 'POST' and not settings.PROPOSAL_VOTING_CLOSED:
         value = ProposalVote._meta.get_field('decision').to_python(request.POST['vote'])
         proposal.vote(request.user, value)
         messages.success(request, 'Your vote has been saved')
@@ -28,6 +29,7 @@ def proposal_view(request, proposal_id):
         'percent': helpers.get_vote_percentage(request.user),
         'votes': proposal.votes.filter(voter=request.user),
         'existing_vote': existing_vote,
+        'voting_is_open': not settings.PROPOSAL_VOTING_CLOSED,
     }
     return render(request, 'proposals/proposal.html', context)
 
@@ -44,6 +46,10 @@ def user_votes_view(request):
 @never_cache
 @active_user_required
 def landing(request):
+    if settings.PROPOSAL_VOTING_CLOSED:
+        messages.warning(request, "Voting has now closed")
+        return redirect('votes_list')
+
     if not request.user.set_preferences:
         return redirect('preferences')
 

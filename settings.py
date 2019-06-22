@@ -58,6 +58,8 @@ SOCIAL_AUTH_SESSION_EXPIRATION = True
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 SOCIAL_AUTH_INACTIVE_USER_LOGIN = False
 
+PROPOSAL_VOTING_CLOSED = env('PROPOSAL_VOTING_OPEN', default=False)
+
 SOCIAL_AUTH_PIPELINE = (
     # Get the information we can about the user and return it in a simple
     # format to create the user instance later. On some cases the details are

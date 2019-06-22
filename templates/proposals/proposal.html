@@ -10,7 +10,9 @@
             {% include 'proposals/includes/proposal.html' %}
         </div>
         <div class="col-md-4" id="right-column">
-            {% include 'proposals/includes/vote_form.html' %}
+            {% if voting_is_open %}
+                {% include 'proposals/includes/vote_form.html' %}
+            {% endif %}
             {% if existing_vote %}
                 <div class="panel panel-default" id="existing-votes-block">
                     <div class="panel-heading">
