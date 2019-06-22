@@ -15,7 +15,7 @@ class ProposalAdmin(admin.ModelAdmin):
         'yes_vote_count',
         'no_vote_count',
         'skip_vote_count',
-        'vote_count',
+        'vote_count_int',
     ]
     list_filter = ['language']
     readonly_fields = [
@@ -63,7 +63,7 @@ class ProposalAdmin(admin.ModelAdmin):
         return obj.s_vote_count
     skip_vote_count.admin_order_field = 's_vote_count'
 
-    def vote_count(self, obj):
+    def vote_count_int(self, obj):
         return (obj.y_vote_count + obj.n_vote_count + obj.s_vote_count)
 
     def has_add_permission(self, request):
