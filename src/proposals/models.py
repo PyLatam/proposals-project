@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import ArrayField, JSONField
 from django.db import models
 from django.db import transaction
+from django.urls import reverse
 from django.utils import timezone
 
 from core.fields import UUIDPrimaryKey
@@ -65,6 +66,9 @@ class Proposal(models.Model):
         vote.decision = decision
         vote.save()
         return vote
+
+    def get_absolute_url(self):
+        return reverse('proposal_view', args=[self.pk])
 
 
 class ProposalAuthor(models.Model):
