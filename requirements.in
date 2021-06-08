@@ -2,9 +2,12 @@
 https://control.divio.com/api/v1/apps/serve/aldryn-addons/1.1.0/7a2d5a44-16e2-4ef8-bfe0-1e61c8601b33/aldryn-addons-1.1.0.tar.gz#egg=aldryn-addons==1.1.0
 https://control.divio.com/api/v1/apps/serve/aldryn-django/2.2.2.1/3de73a8b-158b-4d07-84fd-d2e10d57ab87/aldryn-django-2.2.2.1.tar.gz#egg=aldryn-django==2.2.2.1
 # </INSTALLED_ADDONS>
-bleach
-markdown2
-python-dateutil
-langdetect
-pytz
-social-auth-app-django
+bleach==3.1.5
+markdown2==2.3.9
+python-dateutil==2.7.5
+langdetect==1.0.7
+pytz==2018.7
+social-auth-app-django==3.1.0
+six==1.12.0
+social-auth-core==1.7.0
+django-storages==1.7.2

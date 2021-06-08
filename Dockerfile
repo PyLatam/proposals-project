@@ -5,7 +5,7 @@
 # </WARNING>
 
 # <DOCKER_FROM>
-FROM divio/base:4.15-py3.6-slim-stretch
+FROM divio/base:4.18-py3.6-slim-stretch
 # </DOCKER_FROM>
 
 # <NPM>
@@ -40,4 +40,5 @@ RUN rm -rf /static/*
 
 # <STATIC>
 RUN DJANGO_MODE=build python manage.py collectstatic --noinput
+RUN DJANGO_MODE=build python manage.py migrate
 # </STATIC>
