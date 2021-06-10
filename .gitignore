@@ -16,6 +16,7 @@ Thumbs.db
 # Aldryn
 /.env
 .aldryn
+.divio
 /data
 /data.tar.gz
 /static_collected
